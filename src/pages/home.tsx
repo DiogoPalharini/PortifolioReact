@@ -39,34 +39,25 @@ const Home: React.FC = () => {
                 <h4>Semestre: <strong>2023-2</strong></h4>
                 <p>
                   Participei do projeto da API com o <strong>Parceiro Acadêmico Grupo de Mães</strong>. O objetivo foi desenvolver uma 
-                  <strong> plataforma informativa para mães de crianças com Insuficiência Renal Crônica (IRC)</strong>, oferecendo suporte por meio de:
+                  <strong> plataforma informativa para mães de crianças com Insuficiência Renal Crônica (IRC)</strong>, oferecendo suporte
+                  por meio de artigos educativos, ferramentas para compartilhamento de experiências e dicas, além de um sistema de 
+                  gerenciamento de postagens em um blog.
                 </p>
-                <ul>
-                  <li>Artigos educativos sobre a doença;</li>
-                  <li>Ferramentas para compartilhamento de experiências e dicas;</li>
-                  <li>Gerenciamento de postagens em um blog.</li>
-                </ul>
 
                 <h4>Proposta do Projeto:</h4>
-                <p>A plataforma inclui funcionalidades como:</p>
-                <ul>
-                  <li><strong>Tela de Login, Cadastro e Recuperação de Senha</strong>: para acesso seguro;</li>
-                  <li><strong>Blog</strong>: com sistema de filtro e área de comentários;</li>
-                  <li><strong>Área de Administração</strong>: para gerenciamento de usuários e postagens;</li>
-                  <li><strong>Localização de hospitais</strong> e sintomas comuns para IRC;</li>
-                  <li><strong>Gráficos de dados</strong>: para visualização de informações sobre a doença.</li>
-                </ul>
+                <p>
+                  A proposta do projeto foi criar uma plataforma que incluísse funcionalidades para tela de login, cadastro e recuperação de senha,
+                  um blog com sistema de filtro e área de comentários, uma área de administração para gerenciamento de usuários e postagens,
+                  localização de hospitais e sintomas comuns relacionados à doença, além de gráficos para visualização de dados informativos.
+                </p>
 
                 <h4>Contribuições Pessoais:</h4>
                 <p>
-                  Durante o projeto, atuei como <strong>Product Owner</strong>, sendo responsável por:
+                  Durante o projeto, atuei como <strong>Product Owner</strong>, sendo responsável por organizar o backlog do projeto, 
+                  priorizar funcionalidades com base nos objetivos do parceiro acadêmico e garantir a entrega de funcionalidades alinhadas 
+                  às expectativas do cliente. Além disso, participei diretamente no desenvolvimento das telas de login e cadastro, contribuindo 
+                  para a implementação técnica e ajustes necessários ao longo do processo.
                 </p>
-                <ul>
-                  <li>Organizar o backlog do projeto;</li>
-                  <li>Priorizar funcionalidades de acordo com o objetivo do parceiro acadêmico;</li>
-                  <li>Garantir a entrega de funcionalidades alinhadas às expectativas do cliente;</li>
-                  <li>Participar do desenvolvimento das telas de login e cadastro.</li>
-                </ul>
 
                 <h4>Tecnologias Utilizadas:</h4>
                 <ul>
@@ -101,27 +92,25 @@ const Home: React.FC = () => {
               <div className="dropdown-content">  
                 <h4>Semestre: <strong>2024-1</strong></h4>
                 <p>
-                  Participei do desenvolvimento do <strong>Internet Ocean</strong>, um sistema de gerenciamento de chamados 
-                  para otimizar o atendimento e suporte ao cliente em uma empresa de serviços de internet. 
-                  A plataforma permite o registro, acompanhamento e resolução de chamados, assegurando uma gestão eficiente das demandas.
+                  Participei do desenvolvimento do <strong>Internet Ocean</strong>, um sistema de gerenciamento de chamados para otimizar
+                  o atendimento e suporte ao cliente em uma empresa de serviços de internet. O sistema permite o registro, acompanhamento 
+                  e resolução de chamados, assegurando uma gestão eficiente das demandas e melhorando a experiência dos clientes e técnicos.
                 </p>
 
                 <h4>Proposta do Projeto:</h4>
-                <p>A plataforma inclui funcionalidades como:</p>
-                <ul>
-                  <li><strong>Cadastro de Usuários:</strong> Inclusão de clientes, técnicos e administradores com perfis distintos.</li>
-                  <li><strong>Registro de Chamados:</strong> Sistema para abertura e detalhamento de solicitações de suporte.</li>
-                  <li><strong>Acompanhamento de Chamados:</strong> Monitoramento do status dos chamados (Aberto, Em Processo, Finalizado, Concluído).</li>
-                  <li><strong>Base de Conhecimento (FAQ):</strong> Repositório de soluções para problemas comuns.</li>
-                </ul>
+                <p>
+                  A proposta do projeto foi desenvolver uma solução que permitisse o cadastro de usuários, incluindo clientes, técnicos e
+                  administradores, cada um com perfis e permissões distintos. Também foram implementadas funcionalidades para o registro e
+                  detalhamento de chamados, um sistema de acompanhamento com diferentes status (Aberto, Em Processo, Finalizado, Concluído)
+                  e uma base de conhecimento com soluções para problemas comuns (FAQ), tornando o suporte mais rápido e eficiente.
+                </p>
 
                 <h4>Contribuições Pessoais:</h4>
-                <p>Durante o projeto, contribui com:</p>
-                <ul>
-                  <li>Desenvolvimento das funcionalidades de cadastro e autenticação de usuários.</li>
-                  <li>Implementação do sistema de registro e acompanhamento de chamados.</li>
-                  <li>Colaboração na criação da base de conhecimento para suporte aos clientes.</li>
-                </ul>
+                <p>
+                  Durante o projeto, contribui diretamente para o desenvolvimento das funcionalidades de cadastro e autenticação de usuários, 
+                  além da implementação do sistema de registro e acompanhamento de chamados. Também colaborei na criação da base de conhecimento, 
+                  que forneceu informações valiosas para a equipe de suporte e clientes, garantindo uma experiência otimizada e completa.
+                </p>
 
                 <h4>Tecnologias Utilizadas:</h4>
                 <ul>
@@ -148,62 +137,63 @@ const Home: React.FC = () => {
                 </p>
               </div>
             )}
+
             <br />
             <div className="dropdown-header" onClick={() => toggleProject('portal-transparencia')}>
-              <h3>Releitura do Portal de Transparência</h3>
-            </div>
-            {openProject === 'portal-transparencia' && (
-              <div className="dropdown-content">
-                <h4>Semestre: <strong>2024-2</strong></h4>
-                <p>
-                  Participei do desenvolvimento de uma nova versão do <strong>Portal de Transparência</strong> da Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG). 
-                  O objetivo foi criar uma plataforma mais eficiente e moderna para gestão e visualização de informações públicas, assegurando acessibilidade e transparência.
-                </p>
-
-                <h4>Proposta do Projeto:</h4>
-                <p>A plataforma incluiu funcionalidades como:</p>
-                <ul>
-                  <li><strong>Cadastro, edição e desativação de projetos;</strong></li>
-                  <li><strong>Criação de administradores comuns;</strong></li>
-                  <li><strong>Solicitação de criação e edição de projetos;</strong></li>
-                  <li><strong>Manipulação de arquivos;</strong> associando documentos a projetos;</li>
-                  <li><strong>Sistema de filtros avançados;</strong> para busca e visualização de projetos.</li>
-                </ul>
-
-                <h4>Contribuições Pessoais:</h4>
-                <p>Durante o projeto, contribui diretamente para:</p>
-                <ul>
-                  <li>Implementação de funcionalidades de cadastro, edição e desativação de projetos.</li>
-                  <li>Desenvolvimento da criação de administradores comuns.</li>
-                  <li>Criação do sistema de solicitações para novos projetos e edições.</li>
-                  <li>Manipulação e integração de arquivos ao sistema.</li>
-                </ul>
-
-                <h4>Tecnologias Utilizadas:</h4>
-                <ul>
-                  <li><strong>Backend:</strong> Java com Spring Boot</li>
-                  <li><strong>Frontend:</strong> React.js</li>
-                  <li><strong>Banco de Dados:</strong> MySQL</li>
-                  <li><strong>Controle de Versão:</strong> GitHub</li>
-                </ul>
-
-                <h4>Habilidades Desenvolvidas:</h4>
-                <p><strong>Hard Skills:</strong> Java com Spring Boot, React.js, MySQL, manipulação de arquivos.</p>
-                <p><strong>Soft Skills:</strong> Organização, comunicação em equipe, e resolução de problemas técnicos complexos.</p>
-
-                <h4>Link do Repositório:</h4>
-                <p>
-                  Para mais detalhes, acesse o repositório do projeto no GitHub:{' '}
-                  <a
-                    href="https://github.com/A-Sync-Fatec/api-fatec-3sem-24"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Releitura do Portal de Transparência
-                  </a>
-                </p>
+                <h3>Releitura do Portal de Transparência</h3>
               </div>
-            )}
+              {openProject === 'portal-transparencia' && (
+                <div className="dropdown-content">
+                  <h4>Semestre: <strong>2024-2</strong></h4>
+                  <p>
+                    Participei do desenvolvimento de uma nova versão do <strong>Portal de Transparência</strong> da Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG). 
+                    O objetivo foi criar uma plataforma mais eficiente e moderna para gestão e visualização de informações públicas, assegurando acessibilidade e transparência.
+                  </p>
+
+                  <h4>Proposta do Projeto:</h4>
+                  <p>
+                    A proposta do projeto envolveu a criação de um sistema completo que incluiu funcionalidades para o cadastro, edição e desativação de projetos, 
+                    além da criação de administradores comuns. Também foram implementados sistemas para solicitação de criação e edição de projetos, juntamente 
+                    com a manipulação de arquivos relacionados a cada projeto. Para garantir maior usabilidade e eficiência, desenvolvemos um sistema de filtros 
+                    avançados que permitiu a busca e a visualização dos projetos de forma otimizada, atendendo às demandas específicas do cliente e do público-alvo.
+                  </p>
+
+                  <h4>Contribuições Pessoais:</h4>
+                  <p>
+                    Durante o projeto, contribui diretamente para a implementação de funcionalidades de cadastro, edição e desativação de projetos,
+                    assim como no desenvolvimento do sistema de criação de administradores comuns. Também participei da criação do sistema de 
+                    solicitações para novos projetos e edições, garantindo que todas as demandas fossem atendidas de forma organizada. Adicionalmente, 
+                    atuei na manipulação e integração de arquivos ao sistema, permitindo que documentos relacionados aos projetos fossem incorporados 
+                    de maneira eficiente. Essas atividades envolveram desde a definição de requisitos até a execução técnica, sempre buscando entregar 
+                    um sistema funcional e alinhado às necessidades do cliente.
+                  </p>
+
+                  <h4>Tecnologias Utilizadas:</h4>
+                  <ul>
+                    <li><strong>Backend:</strong> Java com Spring Boot</li>
+                    <li><strong>Frontend:</strong> React.js</li>
+                    <li><strong>Banco de Dados:</strong> MySQL</li>
+                    <li><strong>Controle de Versão:</strong> GitHub</li>
+                  </ul>
+
+                  <h4>Habilidades Desenvolvidas:</h4>
+                  <p><strong>Hard Skills:</strong> Java com Spring Boot, React.js, MySQL, manipulação de arquivos.</p>
+                  <p><strong>Soft Skills:</strong> Organização, comunicação em equipe, e resolução de problemas técnicos complexos.</p>
+
+                  <h4>Link do Repositório:</h4>
+                  <p>
+                    Para mais detalhes, acesse o repositório do projeto no GitHub:{' '}
+                    <a
+                      href="https://github.com/A-Sync-Fatec/api-fatec-3sem-24"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Releitura do Portal de Transparência
+                    </a>
+                  </p>
+                </div>
+              )}
+
 
 
           </div>
