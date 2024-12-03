@@ -18,9 +18,7 @@ const Home: React.FC = () => {
           <img src={MinhaFoto} alt="Minha Foto" className="profile-photo" />
           <h1>Diogo Palharini</h1>
           <p>
-            Desenvolvedor apaixonado por criar soluções impactantes, combinando
-            design e tecnologia. Minha jornada acadêmica e prática reflete meu
-            compromisso com a excelência no desenvolvimento de software.
+          Estudante de Desenvolvimento Multiplataforma na FATEC São José dos Campos. Tenho experiência em projetos que envolvem design e tecnologia, com foco em entregar soluções funcionais e eficientes no desenvolvimento de software.
           </p>
         </div>
       </section>
