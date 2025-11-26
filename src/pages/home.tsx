@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Home.css';
-import MinhaFoto from '../img/DiogoPalharini.jpg';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import MinhaFoto from '../img/DiogoPalharini.png';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
 
 const Home: React.FC = () => {
   const [openProject, setOpenProject] = useState<string | null>(null);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set(prev).add(entry.target.id));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = document.querySelectorAll('[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleProject = (project: string) => {
     setOpenProject(openProject === project ? null : project);
@@ -13,258 +32,415 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       {/* Hero Section */}
-      <section className="section profile-section">
+      <section id="home" className={`section hero-section ${visibleSections.has('home') ? 'visible' : ''}`}>
         <div className="section-content">
-          <img src={MinhaFoto} alt="Minha Foto" className="profile-photo" />
-          <h1>Diogo Palharini</h1>
-          <p>
-          Estudante de Desenvolvimento Multiplataforma na FATEC São José dos Campos. Tenho experiência em projetos que envolvem design e tecnologia, com foco em entregar soluções funcionais e eficientes no desenvolvimento de software.
-          </p>
+          <div className="hero-content">
+            <div className="profile-image-wrapper">
+              <img src={MinhaFoto} alt="Diogo Palharini" className="profile-photo" />
+              <div className="photo-glow"></div>
+            </div>
+            <h1 className="hero-title">
+              <span className="gradient-text">Diogo Palharini</span>
+            </h1>
+            <p className="hero-subtitle">
+              Estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> na FATEC São José dos Campos
+            </p>
+            <p className="hero-description">
+              Atuo como <strong>Product Owner</strong> em projetos acadêmicos com parceiros reais. 
+              Gosto de transformar necessidades em soluções digitais práticas e que realmente funcionam.
+            </p>
+            <div className="hero-cta">
+              <button 
+                className="cta-button"
+                onClick={() => {
+                  document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Ver Projetos
+                <FaChevronDown className="cta-icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sobre Section */}
+      <section id="sobre" className={`section ${visibleSections.has('sobre') ? 'visible' : ''}`}>
+        <div className="section-content">
+          <h2 className="section-title">
+            <span className="title-decoration">Sobre</span>
+          </h2>
+          <div className="about-content">
+            <p>
+              Sou desenvolvedor e <strong>Product Owner</strong>. Na FATEC, trabalho em projetos reais com parceiros 
+              como o Exército Brasileiro e a Tecsus. Nessas experiências, aprendi a equilibrar o que é tecnicamente 
+              viável com o que o cliente realmente precisa.
+            </p>
+            <p>
+              Trabalho com desenvolvimento full-stack e lidero equipes usando metodologias ágeis. 
+              Prezo por código organizado, comunicação clara e entregas que agreguem valor de verdade.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section className="section">
+      <section id="projetos" className={`section ${visibleSections.has('projetos') ? 'visible' : ''}`}>
         <div className="section-content">
-          <h2>Projetos</h2>
+          <h2 className="section-title">
+            <span className="title-decoration">Projetos Acadêmicos e Parceiros</span>
+          </h2>
           <div className="dropdown">
-            {/* Projeto 1 */}
-            <div className="dropdown-header" onClick={() => toggleProject('pixels')}>
-              <h3>Projeto Pixels</h3>
+            {/* PROJETO 2025.02 - Gerenciamento de Almoxarifado Militar */}
+            <div 
+              className={`dropdown-header ${openProject === 'almoxarifado' ? 'active' : ''}`}
+              onClick={() => toggleProject('almoxarifado')}
+            >
+              <div className="project-header-content">
+                <h3>Aplicativo Mobile para Controle de Almoxarifado Militar</h3>
+                <span className="project-badge">2025.02</span>
+              </div>
+              <FaChevronDown className={`dropdown-icon ${openProject === 'almoxarifado' ? 'open' : ''}`} />
+            </div>
+            {openProject === 'almoxarifado' && (
+              <div className="dropdown-content">
+                <div className="project-meta">
+                  <span className="meta-item"><strong>Semestre:</strong> 5º – 2025.02</span>
+                  <span className="meta-item"><strong>Parceiro:</strong> Exército Brasileiro</span>
+                </div>
+                <p>
+                  Atuei como <strong>Product Owner</strong> no desenvolvimento de um aplicativo mobile para controle 
+                  de materiais em unidades militares. O sistema substitui processos manuais por uma solução digital 
+                  com rastreamento por QR Code, alertas de estoque e previsões de demanda usando IA.
+                </p>
+
+                <h4>O que o sistema faz:</h4>
+                <ul className="feature-list">
+                  <li>Controle de entrada e saída com QR Code</li>
+                  <li>Gestão de lotes e validade</li>
+                  <li>Fluxos de aprovação</li>
+                  <li>Dashboard com previsões usando IA</li>
+                  <li>Notificações automáticas</li>
+                  <li>Geração de relatórios em PDF</li>
+                </ul>
+
+                <h4>O que fiz como Product Owner:</h4>
+                <p>
+                  Organizei e priorizei o backlog pensando em um MVP viável. Facilitei as cerimônias do Scrum, 
+                  validei as entregas com o cliente e garanti que o time estava alinhado com os requisitos. 
+                  Coordenei 3 sprints e conseguimos entregar todas as histórias planejadas.
+                </p>
+
+                <div className="tech-stack">
+                  <h4>Tecnologias:</h4>
+                  <div className="tech-tags">
+                    <span className="tech-tag">Flutter</span>
+                    <span className="tech-tag">Node.js</span>
+                    <span className="tech-tag">Python</span>
+                    <span className="tech-tag">Supabase</span>
+                    <span className="tech-tag">PostgreSQL</span>
+                    <span className="tech-tag">Figma</span>
+                  </div>
+                </div>
+
+                <div className="project-link">
+                  <a href="https://github.com/TeamHiveAPI/API-2025.02" target="_blank" rel="noopener noreferrer" className="link-button">
+                    Ver Repositório <FaExternalLinkAlt />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* PROJETO 2025.01 - Monitoramento Meteorológico IoT */}
+            <div 
+              className={`dropdown-header ${openProject === 'iot' ? 'active' : ''}`}
+              onClick={() => toggleProject('iot')}
+            >
+              <div className="project-header-content">
+                <h3>Sistema IoT de Monitoramento Meteorológico</h3>
+                <span className="project-badge">2025.01</span>
+              </div>
+              <FaChevronDown className={`dropdown-icon ${openProject === 'iot' ? 'open' : ''}`} />
+            </div>
+            {openProject === 'iot' && (
+              <div className="dropdown-content">
+                <div className="project-meta">
+                  <span className="meta-item"><strong>Semestre:</strong> 4º – 2025.01</span>
+                  <span className="meta-item"><strong>Parceiro:</strong> Tecsus</span>
+                </div>
+                <p>
+                  Fui <strong>Product Owner</strong> de uma plataforma IoT para estações meteorológicas remotas. 
+                  O sistema coleta dados ambientais em tempo real e envia alertas automáticos para eventos climáticos extremos.
+                </p>
+
+                <h4>O que o sistema faz:</h4>
+                <ul className="feature-list">
+                  <li>Dashboard web interativo</li>
+                  <li>Mapas de calor</li>
+                  <li>Alertas por e-mail e SMS</li>
+                  <li>Integração com sensores usando MQTT</li>
+                  <li>Histórico e gráficos</li>
+                </ul>
+
+                <h4>O que fiz como Product Owner:</h4>
+                <p>
+                  Organizei o backlog com mais de 40 histórias de usuário. Priorizei funcionalidades críticas, 
+                  como alertas que precisavam ser enviados em menos de 5 segundos. Conduzi refinamentos e validações 
+                  com a Tecsus, garantindo que o sistema atendesse aos requisitos de segurança e escalabilidade.
+                </p>
+
+                <div className="tech-stack">
+                  <h4>Tecnologias:</h4>
+                  <div className="tech-tags">
+                    <span className="tech-tag">Node.js</span>
+                    <span className="tech-tag">Express</span>
+                    <span className="tech-tag">React.js</span>
+                    <span className="tech-tag">Chart.js</span>
+                    <span className="tech-tag">MongoDB</span>
+                    <span className="tech-tag">MQTT</span>
+                    <span className="tech-tag">Docker</span>
+                  </div>
+                </div>
+
+                <div className="project-link">
+                  <a href="https://github.com/TeamHiveAPI/API-2025.01" target="_blank" rel="noopener noreferrer" className="link-button">
+                    Ver Repositório <FaExternalLinkAlt />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Portal de Transparência */}
+            <div 
+              className={`dropdown-header ${openProject === 'portal-transparencia' ? 'active' : ''}`}
+              onClick={() => toggleProject('portal-transparencia')}
+            >
+              <div className="project-header-content">
+                <h3>Portal de Transparência – FAPG</h3>
+                <span className="project-badge">2024-2</span>
+              </div>
+              <FaChevronDown className={`dropdown-icon ${openProject === 'portal-transparencia' ? 'open' : ''}`} />
+            </div>
+            {openProject === 'portal-transparencia' && (
+              <div className="dropdown-content">
+                <div className="project-meta">
+                  <span className="meta-item"><strong>Semestre:</strong> 2024-2</span>
+                </div>
+                <p>
+                  Desenvolvi uma versão nova do Portal de Transparência da Fundação de Apoio à Pesquisa. 
+                  Focamos em tornar o portal mais fácil de usar, com filtros melhores e uma gestão completa de projetos públicos.
+                </p>
+                <h4>O que desenvolvi:</h4>
+                <ul className="feature-list">
+                  <li>Sistema completo de cadastro e edição de projetos</li>
+                  <li>Sistema de solicitações e aprovação</li>
+                  <li>Upload e controle de versões de documentos</li>
+                  <li>Filtros dinâmicos e interface responsiva</li>
+                </ul>
+                <div className="tech-stack">
+                  <h4>Tecnologias:</h4>
+                  <div className="tech-tags">
+                    <span className="tech-tag">Java</span>
+                    <span className="tech-tag">Spring Boot</span>
+                    <span className="tech-tag">React.js</span>
+                    <span className="tech-tag">MySQL</span>
+                  </div>
+                </div>
+                <div className="project-link">
+                  <a href="https://github.com/A-Sync-Fatec/api-fatec-3sem-24" target="_blank" rel="noopener noreferrer" className="link-button">
+                    Ver Repositório <FaExternalLinkAlt />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Internet Ocean */}
+            <div 
+              className={`dropdown-header ${openProject === 'internet-ocean' ? 'active' : ''}`}
+              onClick={() => toggleProject('internet-ocean')}
+            >
+              <div className="project-header-content">
+                <h3>Internet Ocean – Sistema de Chamados</h3>
+                <span className="project-badge">2024-1</span>
+              </div>
+              <FaChevronDown className={`dropdown-icon ${openProject === 'internet-ocean' ? 'open' : ''}`} />
+            </div>
+            {openProject === 'internet-ocean' && (
+              <div className="dropdown-content">
+                <div className="project-meta">
+                  <span className="meta-item"><strong>Semestre:</strong> 2024-1</span>
+                </div>
+                <p>
+                  Sistema para abertura, acompanhamento e resolução de chamados técnicos. 
+                  Inclui uma base de conhecimento para ajudar os usuários a resolverem problemas sozinhos.
+                </p>
+                <h4>O que desenvolvi:</h4>
+                <ul className="feature-list">
+                  <li>Sistema de autenticação</li>
+                  <li>Controle de status dos chamados</li>
+                  <li>FAQ com busca</li>
+                  <li>Dashboard para administradores</li>
+                </ul>
+                <div className="tech-stack">
+                  <h4>Tecnologias:</h4>
+                  <div className="tech-tags">
+                    <span className="tech-tag">Node.js</span>
+                    <span className="tech-tag">Express</span>
+                    <span className="tech-tag">React.js</span>
+                    <span className="tech-tag">MySQL</span>
+                  </div>
+                </div>
+                <div className="project-link">
+                  <a href="https://github.com/CoddingWarriors/Api_CoddingWarriors" target="_blank" rel="noopener noreferrer" className="link-button">
+                    Ver Repositório <FaExternalLinkAlt />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Projeto Pixels */}
+            <div 
+              className={`dropdown-header ${openProject === 'pixels' ? 'active' : ''}`}
+              onClick={() => toggleProject('pixels')}
+            >
+              <div className="project-header-content">
+                <h3>Projeto Pixels – Plataforma para Famílias</h3>
+                <span className="project-badge">2023-2</span>
+              </div>
+              <FaChevronDown className={`dropdown-icon ${openProject === 'pixels' ? 'open' : ''}`} />
             </div>
             {openProject === 'pixels' && (
               <div className="dropdown-content">
-                <h4>Semestre: <strong>2023-2</strong></h4>
-                <p>
-                  Participei do projeto da API com o <strong>Parceiro Acadêmico Grupo de Mães</strong>. O objetivo foi desenvolver uma 
-                  <strong> plataforma informativa para mães de crianças com Insuficiência Renal Crônica (IRC)</strong>, oferecendo suporte
-                  por meio de artigos educativos, ferramentas para compartilhamento de experiências e dicas, além de um sistema de 
-                  gerenciamento de postagens em um blog.
-                </p>
-
-                <h4>Proposta do Projeto:</h4>
-                <p>
-                  A proposta do projeto foi criar uma plataforma que incluísse funcionalidades para tela de login, cadastro e recuperação de senha,
-                  um blog com sistema de filtro e área de comentários, uma área de administração para gerenciamento de usuários e postagens,
-                  localização de hospitais e sintomas comuns relacionados à doença, além de gráficos para visualização de dados informativos.
-                </p>
-
-                <h4>Contribuições Pessoais:</h4>
-                <p>
-                  Durante o projeto, atuei como <strong>Product Owner</strong>, sendo responsável por organizar o backlog do projeto, 
-                  priorizar funcionalidades com base nos objetivos do parceiro acadêmico e garantir a entrega de funcionalidades alinhadas 
-                  às expectativas do cliente. Além disso, participei diretamente no desenvolvimento das telas de login e cadastro, contribuindo 
-                  para a implementação técnica e ajustes necessários ao longo do processo.
-                </p>
-
-                <h4>Tecnologias Utilizadas:</h4>
-                <ul>
-                  <li><strong>Backend:</strong> Python Flask;</li>
-                  <li><strong>Frontend:</strong> HTML e CSS;</li>
-                  <li><strong>Banco de Dados:</strong> MySQL;</li>
-                  <li><strong>Prototipagem:</strong> Figma.</li>
-                </ul>
-
-                <h4>Habilidades Desenvolvidas:</h4>
-                <p><strong>Hard Skills:</strong> Python, HTML, CSS, MySQL.</p>
-                <p><strong>Soft Skills:</strong> Comunicação, trabalho em equipe, organização.</p>
-
-                <h4>Link do Repositório:</h4>
-                <p>
-                  Para mais detalhes, acesse o repositório do projeto no GitHub:{' '}
-                  <a
-                    href="https://github.com/Daiene/Pixels"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Pixels
-                  </a>
-                </p>
-              </div>
-            )}
-            <br />
-            <div className="dropdown-header" onClick={() => toggleProject('internet-ocean')}>
-              <h3>Projeto Internet Ocean</h3>
-            </div>
-            {openProject === 'internet-ocean' && (
-              <div className="dropdown-content">  
-                <h4>Semestre: <strong>2024-1</strong></h4>
-                <p>
-                  Participei do desenvolvimento do <strong>Internet Ocean</strong>, um sistema de gerenciamento de chamados para otimizar
-                  o atendimento e suporte ao cliente em uma empresa de serviços de internet. O sistema permite o registro, acompanhamento 
-                  e resolução de chamados, assegurando uma gestão eficiente das demandas e melhorando a experiência dos clientes e técnicos.
-                </p>
-
-                <h4>Proposta do Projeto:</h4>
-                <p>
-                  A proposta do projeto foi desenvolver uma solução que permitisse o cadastro de usuários, incluindo clientes, técnicos e
-                  administradores, cada um com perfis e permissões distintos. Também foram implementadas funcionalidades para o registro e
-                  detalhamento de chamados, um sistema de acompanhamento com diferentes status (Aberto, Em Processo, Finalizado, Concluído)
-                  e uma base de conhecimento com soluções para problemas comuns (FAQ), tornando o suporte mais rápido e eficiente.
-                </p>
-
-                <h4>Contribuições Pessoais:</h4>
-                <p>
-                  Durante o projeto, contribui diretamente para o desenvolvimento das funcionalidades de cadastro e autenticação de usuários, 
-                  além da implementação do sistema de registro e acompanhamento de chamados. Também colaborei na criação da base de conhecimento, 
-                  que forneceu informações valiosas para a equipe de suporte e clientes, garantindo uma experiência otimizada e completa.
-                </p>
-
-                <h4>Tecnologias Utilizadas:</h4>
-                <ul>
-                  <li><strong>Backend:</strong> Node.js com Express</li>
-                  <li><strong>Frontend:</strong> React.js</li>
-                  <li><strong>Banco de Dados:</strong> MySQL</li>
-                  <li><strong>Controle de Versão:</strong> GitHub</li>
-                </ul>
-
-                <h4>Habilidades Desenvolvidas:</h4>
-                <p><strong>Hard Skills:</strong> Programação em JavaScript, desenvolvimento com Node.js e React.js, manipulação de banco de dados MySQL.</p>
-                <p><strong>Soft Skills:</strong> Trabalho em equipe, comunicação eficaz, gestão de tempo e resolução de problemas.</p>
-
-                <h4>Link do Repositório:</h4>
-                <p>
-                  Para mais detalhes, acesse o repositório do projeto no GitHub:{' '}
-                  <a
-                    href="https://github.com/CoddingWarriors/Api_CoddingWarriors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Internet Ocean
-                  </a>
-                </p>
-              </div>
-            )}
-
-            <br />
-            <div className="dropdown-header" onClick={() => toggleProject('portal-transparencia')}>
-                <h3>Releitura do Portal de Transparência</h3>
-              </div>
-              {openProject === 'portal-transparencia' && (
-                <div className="dropdown-content">
-                  <h4>Semestre: <strong>2024-2</strong></h4>
-                  <p>
-                    Participei do desenvolvimento de uma nova versão do <strong>Portal de Transparência</strong> da Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG). 
-                    O objetivo foi criar uma plataforma mais eficiente e moderna para gestão e visualização de informações públicas, assegurando acessibilidade e transparência.
-                  </p>
-
-                  <h4>Proposta do Projeto:</h4>
-                  <p>
-                    A proposta do projeto envolveu a criação de um sistema completo que incluiu funcionalidades para o cadastro, edição e desativação de projetos, 
-                    além da criação de administradores comuns. Também foram implementados sistemas para solicitação de criação e edição de projetos, juntamente 
-                    com a manipulação de arquivos relacionados a cada projeto. Para garantir maior usabilidade e eficiência, desenvolvemos um sistema de filtros 
-                    avançados que permitiu a busca e a visualização dos projetos de forma otimizada, atendendo às demandas específicas do cliente e do público-alvo.
-                  </p>
-
-                  <h4>Contribuições Pessoais:</h4>
-                  <p>
-                    Durante o projeto, contribui diretamente para a implementação de funcionalidades de cadastro, edição e desativação de projetos,
-                    assim como no desenvolvimento do sistema de criação de administradores comuns. Também participei da criação do sistema de 
-                    solicitações para novos projetos e edições, garantindo que todas as demandas fossem atendidas de forma organizada. Adicionalmente, 
-                    atuei na manipulação e integração de arquivos ao sistema, permitindo que documentos relacionados aos projetos fossem incorporados 
-                    de maneira eficiente. Essas atividades envolveram desde a definição de requisitos até a execução técnica, sempre buscando entregar 
-                    um sistema funcional e alinhado às necessidades do cliente.
-                  </p>
-
-                  <h4>Tecnologias Utilizadas:</h4>
-                  <ul>
-                    <li><strong>Backend:</strong> Java com Spring Boot</li>
-                    <li><strong>Frontend:</strong> React.js</li>
-                    <li><strong>Banco de Dados:</strong> MySQL</li>
-                    <li><strong>Controle de Versão:</strong> GitHub</li>
-                  </ul>
-
-                  <h4>Habilidades Desenvolvidas:</h4>
-                  <p><strong>Hard Skills:</strong> Java com Spring Boot, React.js, MySQL, manipulação de arquivos.</p>
-                  <p><strong>Soft Skills:</strong> Organização, comunicação em equipe, e resolução de problemas técnicos complexos.</p>
-
-                  <h4>Link do Repositório:</h4>
-                  <p>
-                    Para mais detalhes, acesse o repositório do projeto no GitHub:{' '}
-                    <a
-                      href="https://github.com/A-Sync-Fatec/api-fatec-3sem-24"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Releitura do Portal de Transparência
-                    </a>
-                  </p>
+                <div className="project-meta">
+                  <span className="meta-item"><strong>Semestre:</strong> 2023-2</span>
+                  <span className="meta-item"><strong>Parceiro:</strong> Grupo de Mães</span>
                 </div>
-              )}
-
-
-
+                <p>
+                  Plataforma educativa com blog, fórum e recursos para famílias de crianças com Insuficiência Renal Crônica.
+                </p>
+                <h4>O que fiz:</h4>
+                <ul className="feature-list">
+                  <li>Primeira experiência como Product Owner</li>
+                  <li>Organizei e gerenciei o backlog</li>
+                  <li>Desenvolvi o sistema de autenticação</li>
+                </ul>
+                <div className="tech-stack">
+                  <h4>Tecnologias:</h4>
+                  <div className="tech-tags">
+                    <span className="tech-tag">Python</span>
+                    <span className="tech-tag">Flask</span>
+                    <span className="tech-tag">HTML/CSS</span>
+                    <span className="tech-tag">MySQL</span>
+                    <span className="tech-tag">Figma</span>
+                  </div>
+                </div>
+                <div className="project-link">
+                  <a href="https://github.com/Daiene/Pixels" target="_blank" rel="noopener noreferrer" className="link-button">
+                    Ver Repositório <FaExternalLinkAlt />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="section">
+      {/* Skills Section */}
+      <section id="skills" className={`section ${visibleSections.has('skills') ? 'visible' : ''}`}>
         <div className="section-content">
-          <h2>Meus Principais Conhecimentos</h2>
+          <h2 className="section-title">
+            <span className="title-decoration">Principais Competências</span>
+          </h2>
           <div className="skills-container">
             <div className="skill-card">
-              <h3>Python</h3>
-              <p>
-                Experiência em desenvolvimento de APIs com Flask, incluindo
-                gerenciamento de dados e criação de aplicações escaláveis.
-              </p>
+              <div className="skill-icon">🎯</div>
+              <h3>Product Owner</h3>
+              <p>Organização de backlog, priorização, Scrum e validação com clientes</p>
             </div>
             <div className="skill-card">
-              <h3>MySQL</h3>
-              <p>
-                Forte conhecimento em modelagem de bancos de dados relacionais,
-                queries avançadas e otimização de performance.
-              </p>
+              <div className="skill-icon">📱</div>
+              <h3>Flutter</h3>
+              <p>Desenvolvimento mobile para Android e iOS</p>
             </div>
             <div className="skill-card">
-              <h3>TypeScript</h3>
-              <p>
-                Habilidade no uso de TypeScript para desenvolvimento front-end e
-                back-end, garantindo segurança e clareza no código.
-              </p>
-            </div>
-            <div className="skill-card">
-              <h3>GitHub</h3>
-              <p>
-                Experiência com versionamento de código, colaboração em equipe e
-                gestão de repositórios.
-              </p>
-            </div>
-            <div className="skill-card">
+              <div className="skill-icon">⚛️</div>
               <h3>React.js</h3>
-              <p>
-                Desenvolvimento de interfaces dinâmicas e responsivas com foco em
-                experiência do usuário.
-              </p>
+              <p>Desenvolvimento de interfaces web</p>
             </div>
             <div className="skill-card">
-              <h3>Spring Boot</h3>
-              <p>
-                Desenvolvimento de sistemas robustos com Java, utilizando Spring Boot
-                para criar APIs e serviços RESTful.
-              </p>
+              <div className="skill-icon">🚀</div>
+              <h3>Node.js</h3>
+              <p>Desenvolvimento de APIs e backends</p>
+            </div>
+            <div className="skill-card">
+              <div className="skill-icon">☕</div>
+              <h3>Java Spring Boot</h3>
+              <p>Desenvolvimento de sistemas corporativos</p>
+            </div>
+            <div className="skill-card">
+              <div className="skill-icon">🐍</div>
+              <h3>Python</h3>
+              <p>Flask, automações e projetos com IA</p>
+            </div>
+            <div className="skill-card">
+              <div className="skill-icon">🗄️</div>
+              <h3>Bancos de Dados</h3>
+              <p>MySQL, PostgreSQL e MongoDB</p>
+            </div>
+            <div className="skill-card">
+              <div className="skill-icon">🔄</div>
+              <h3>Git & Metodologias Ágeis</h3>
+              <p>Controle de versão, Scrum e Kanban</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="section">
+      {/* Contato Section */}
+      <section id="contato" className={`section contact-section ${visibleSections.has('contato') ? 'visible' : ''}`}>
         <div className="section-content">
-          <h2>Contato</h2>
-          <p>Conecte-se comigo através das redes sociais:</p>
+          <h2 className="section-title">
+            <span className="title-decoration">Contato</span>
+          </h2>
+          <p className="contact-description">Quer conversar sobre projetos, estágios ou oportunidades? Entre em contato!</p>
           <div className="contact-icons">
-            <a href="https://github.com/DiogoPalharini" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://github.com/DiogoPalharini" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-link"
+              aria-label="GitHub"
+            >
               <FaGithub />
+              <span>GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/diogo-palharini-10b803275/" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://www.linkedin.com/in/diogo-palharini-10b803275/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-link"
+              aria-label="LinkedIn"
+            >
               <FaLinkedin />
+              <span>LinkedIn</span>
             </a>
-            <a href="https://www.instagram.com/diogopalharini/" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://www.instagram.com/diogopalharini/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-link"
+              aria-label="Instagram"
+            >
               <FaInstagram />
+              <span>Instagram</span>
             </a>
-            <a href="mailto:diogo.palharini@gmail.com">
+            <a 
+              href="mailto:diogo.palharini@gmail.com"
+              className="contact-link"
+              aria-label="Email"
+            >
               <FaEnvelope />
+              <span>Email</span>
             </a>
           </div>
         </div>

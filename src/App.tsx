@@ -1,37 +1,39 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
+import Header from './components/Header';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e293b, #0f172a); /* Fundo consistente com o design */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background-attachment: fixed;
   color: #e2e8f0;
 `;
 
 const Content = styled.main`
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem; /* Adiciona espaço ao redor do conteúdo */
+  width: 100%;
 `;
 
 const Footer = styled.footer`
-  background-color: #0f172a;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
   color: #94a3b8;
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem;
   font-size: 0.9rem;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  margin-top: 4rem;
 `;
 
 const App: React.FC = () => {
   return (
     <Router>
       <AppContainer>
+        <Header />
         <Content>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -39,7 +41,10 @@ const App: React.FC = () => {
         </Content>
         <Footer>
           <p>
-            © 2024 <strong>Diogo Palharini</strong>. Todos os direitos reservados.
+            © {new Date().getFullYear()} <strong style={{ color: '#38bdf8' }}>Diogo Palharini</strong>. Todos os direitos reservados.
+          </p>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+            Desenvolvido com React, TypeScript e Styled Components
           </p>
         </Footer>
       </AppContainer>
